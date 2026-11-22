@@ -2,121 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Conversation Coach</title>
-<meta name="description" content="Simple, proven ways for families to talk with someone who has aphasia after a stroke or who has hearing loss, with a daily practice check.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>%APP_NAME%</title>
+<meta name="description" content="%APP_DESC%">
 <meta name="theme-color" content="#17212E">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kit.css">
-<style>
-.wrap{max-width:900px}
-.tech{display:grid;gap:12px;grid-template-columns:1fr}
-@media (min-width:720px){ .tech{grid-template-columns:1fr 1fr} }
-.tcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;display:grid;grid-template-columns:auto 1fr;gap:12px}
-.tcard .n{width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;font-weight:700}
-.tcard h4{margin:0 0 4px;font-size:1.05rem}
-.tcard p{margin:0;color:var(--muted)}
-.days{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.days span{width:30px;height:30px;border-radius:6px;background:var(--track);display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted)}
-.days span.on{background:var(--ok);color:#fff}
-.days span.today{outline:2px solid var(--ink);outline-offset:1px}
-</style>
 </head>
 <body>
-<header class="top"><div class="wrap">
-  <div class="brand"><img src="icon.svg" width="34" height="34" alt=""><h1><span data-i18n="appName"></span><small data-i18n="appSub"></small></h1></div>
-  <div class="top-tools"><span class="net" id="net" role="status" aria-live="polite"></span><label class="sr" for="lang" data-i18n="language">Language</label><select id="lang" class="lang"></select></div>
-</div></header>
-
-<main class="wrap">
-  <section class="intro"><h2 data-i18n="h2"></h2><p data-i18n="intro"></p></section>
-  <div class="seg" role="group" style="margin:16px 0 4px" id="modes">
-    <button type="button" data-mode="aphasia" data-i18n="mAph"></button>
-    <button type="button" data-mode="hearing" data-i18n="mHear"></button>
-  </div>
-  <p class="muted" id="modeNote" style="margin:8px 0 14px"></p>
-  <div class="tech" id="tech"></div>
-
-  <section class="panel" style="margin-top:22px" aria-labelledby="pTitle">
-    <h3 id="pTitle" data-i18n="practiceTitle"></h3>
-    <p class="lead" data-i18n="practiceIntro"></p>
-    <div id="checks"></div>
-    <div class="days" id="days" aria-label="Last 14 days"></div>
-    <p class="muted small-text" id="streak" style="margin-top:8px"></p>
-  </section>
-
-  <section class="callout" style="margin-top:22px"><h4 data-i18n="helpTitle"></h4><p style="margin:0" data-i18n="helpText"></p></section>
-</main>
-
-<footer><div class="wrap">
-  <p data-i18n="disclaimer"></p>
-  <p class="small-text">Kagan A et al. Training volunteers as conversation partners using “Supported Conversation for Adults with Aphasia” (SCA): a controlled trial. J Speech Lang Hear Res 2001;44(3):624–638. Simmons-Mackie N et al. Communication partner training in aphasia: an updated systematic review. Arch Phys Med Rehabil 2016;97(12):2202–2221. Tye-Murray N. Foundations of Aural Rehabilitation. 5th ed. San Diego: Plural; 2019.</p>
-  <p data-i18n="reviewNote"></p>
-  <p id="credit"></p>
-</div></footer>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script src="kit.js"></script>
-<script>
-const TECH = {
-  aphasia:[
-    {en:["Set up the conversation","Sit face to face, turn off the TV, and talk one person at a time."], kn:["ಮಾತುಕತೆಗೆ ಸಿದ್ಧಗೊಳಿಸಿ","ಎದುರು-ಬದುರು ಕುಳಿತುಕೊಳ್ಳಿ, ಟಿವಿ ಆರಿಸಿ, ಒಬ್ಬೊಬ್ಬರೇ ಮಾತನಾಡಿ."], te:["సంభాషణకు సిద్ధం చేయండి","ఎదురెదురుగా కూర్చోండి, టీవీ ఆపండి, ఒకరి తర్వాత ఒకరు మాట్లాడండి."], hi:["बातचीत की तैयारी करें","आमने-सामने बैठें, टीवी बंद करें, एक समय में एक ही व्यक्ति बोले।"]},
-    {en:["Short sentences, adult respect","Use short, clear sentences, but talk to them as the adult they are."], kn:["ಚಿಕ್ಕ ವಾಕ್ಯ, ಹಿರಿಯರ ಗೌರವ","ಚಿಕ್ಕ, ಸ್ಪಷ್ಟ ವಾಕ್ಯ ಬಳಸಿ; ಆದರೆ ಅವರು ವಯಸ್ಕರು ಎಂಬಂತೆಯೇ ಮಾತನಾಡಿ."], te:["చిన్న వాక్యాలు, పెద్దవారికి గౌరవం","చిన్న, స్పష్టమైన వాక్యాలు వాడండి; కానీ వారిని పెద్దవారిలాగే గౌరవంగా మాట్లాడండి."], hi:["छोटे वाक्य, बड़ों जैसा सम्मान","छोटे, साफ़ वाक्य बोलें, पर उनसे एक वयस्क की तरह ही बात करें।"]},
-    {en:["Write, draw and point","Write key words, draw, or point to photos and objects while you talk."], kn:["ಬರೆಯಿರಿ, ಚಿತ್ರಿಸಿ, ತೋರಿಸಿ","ಮಾತನಾಡುವಾಗ ಮುಖ್ಯ ಪದ ಬರೆಯಿರಿ, ಚಿತ್ರ ಬಿಡಿಸಿ, ಅಥವಾ ಫೋಟೋ, ವಸ್ತು ತೋರಿಸಿ."], te:["రాయండి, గీయండి, చూపించండి","మాట్లాడుతూ ముఖ్య పదాలు రాయండి, బొమ్మ గీయండి, లేదా ఫోటోలు, వస్తువులు చూపించండి."], hi:["लिखें, बनाएँ, इशारा करें","बात करते समय मुख्य शब्द लिखें, चित्र बनाएँ, या फ़ोटो और चीज़ों की ओर इशारा करें।"]},
-    {en:["Ask easy questions","Ask yes-or-no or choice questions: “Tea or coffee?”"], kn:["ಸುಲಭ ಪ್ರಶ್ನೆ ಕೇಳಿ","ಹೌದು-ಇಲ್ಲ ಅಥವಾ ಆಯ್ಕೆಯ ಪ್ರಶ್ನೆ ಕೇಳಿ: “ಚಹಾ ಬೇಕಾ, ಕಾಫಿ ಬೇಕಾ?”"], te:["సులభమైన ప్రశ్నలు అడగండి","అవును-కాదు లేదా ఎంపిక ప్రశ్నలు అడగండి: “టీ కావాలా, కాఫీ కావాలా?”"], hi:["आसान सवाल पूछें","हाँ-ना या चुनने वाले सवाल पूछें: “चाय या कॉफ़ी?”"]},
-    {en:["Give time","Wait for them to answer. Don't finish their sentences unless they ask."], kn:["ಸಮಯ ಕೊಡಿ","ಉತ್ತರಿಸಲು ಕಾಯಿರಿ. ಅವರು ಕೇಳದ ಹೊರತು ಅವರ ವಾಕ್ಯ ನೀವೇ ಮುಗಿಸಬೇಡಿ."], te:["సమయం ఇవ్వండి","సమాధానం కోసం ఆగండి. వారు అడిగితే తప్ప వారి వాక్యాలు మీరు పూర్తి చేయకండి."], hi:["समय दें","जवाब का इंतज़ार करें। जब तक वे न कहें, उनका वाक्य आप पूरा न करें।"]},
-    {en:["Check you understood","Repeat back the main point: “So you want to visit your sister?”"], kn:["ಅರ್ಥವಾಯಿತೆ ಖಚಿತಪಡಿಸಿ","ಮುಖ್ಯ ವಿಷಯ ಮತ್ತೆ ಹೇಳಿ: “ಅಂದರೆ ನೀವು ತಂಗಿಯನ್ನು ನೋಡಲು ಹೋಗಬೇಕಾ?”"], te:["అర్థమైందో సరిచూసుకోండి","ముఖ్య విషయం మళ్లీ చెప్పండి: “అంటే మీరు చెల్లెలిని చూడాలనుకుంటున్నారా?”"], hi:["समझ की पुष्टि करें","मुख्य बात दोहराएँ: “तो आप बहन से मिलने जाना चाहते हैं?”"]}
-  ],
-  hearing:[
-    {en:["Get attention first","Say their name and make sure they can see your face before you start."], kn:["ಮೊದಲು ಗಮನ ಸೆಳೆಯಿರಿ","ಆರಂಭಿಸುವ ಮೊದಲು ಹೆಸರು ಕರೆಯಿರಿ, ನಿಮ್ಮ ಮುಖ ಕಾಣುವಂತೆ ನೋಡಿಕೊಳ್ಳಿ."], te:["ముందు దృష్టి ఆకర్షించండి","మొదలుపెట్టే ముందు పేరు పిలవండి, మీ ముఖం కనిపించేలా చూసుకోండి."], hi:["पहले ध्यान खींचें","शुरू करने से पहले नाम लें और देखें कि वे आपका चेहरा देख सकें।"]},
-    {en:["Cut background noise","Turn off the TV, mixer or fan, and move away from noise."], kn:["ಹಿನ್ನೆಲೆ ಶಬ್ದ ಕಡಿಮೆ ಮಾಡಿ","ಟಿವಿ, ಮಿಕ್ಸಿ ಅಥವಾ ಫ್ಯಾನ್ ಆರಿಸಿ; ಗದ್ದಲದಿಂದ ದೂರ ಸರಿಯಿರಿ."], te:["నేపథ్య శబ్దం తగ్గించండి","టీవీ, మిక్సీ లేదా ఫ్యాన్ ఆపండి; శబ్దానికి దూరంగా వెళ్లండి."], hi:["आसपास का शोर कम करें","टीवी, मिक्सी या पंखा बंद करें और शोर से दूर हो जाएँ।"]},
-    {en:["Speak clearly, don't shout","A little slower and clearer. Shouting distorts speech."], kn:["ಸ್ಪಷ್ಟವಾಗಿ ಮಾತನಾಡಿ, ಕಿರುಚಬೇಡಿ","ಸ್ವಲ್ಪ ನಿಧಾನವಾಗಿ, ಸ್ಪಷ್ಟವಾಗಿ. ಕಿರುಚಿದರೆ ಮಾತು ವಿಕಾರವಾಗುತ್ತದೆ."], te:["స్పష్టంగా మాట్లాడండి, అరవకండి","కొంచెం నెమ్మదిగా, స్పష్టంగా. అరిస్తే మాట వక్రీకరిస్తుంది."], hi:["साफ़ बोलें, चिल्लाएँ नहीं","थोड़ा धीमे और साफ़। चिल्लाने से बोली बिगड़ जाती है।"]},
-    {en:["Say it another way","If they miss it, rephrase instead of repeating the same words."], kn:["ಬೇರೆ ರೀತಿ ಹೇಳಿ","ಅರ್ಥವಾಗದಿದ್ದರೆ ಅದೇ ಪದ ಪುನರಾವರ್ತಿಸದೆ ಬೇರೆ ರೀತಿ ಹೇಳಿ."], te:["మరో విధంగా చెప్పండి","అర్థం కాకపోతే అవే మాటలు మళ్లీ కాకుండా వేరే విధంగా చెప్పండి."], hi:["दूसरे तरीक़े से कहें","समझ न आए तो वही शब्द दोहराने की जगह बात दूसरे ढंग से कहें।"]},
-    {en:["Name the topic","Say what you are talking about first, and when the topic changes."], kn:["ವಿಷಯ ತಿಳಿಸಿ","ಮೊದಲು ಯಾವ ವಿಷಯ ಎಂದು ಹೇಳಿ; ವಿಷಯ ಬದಲಾದಾಗಲೂ ತಿಳಿಸಿ."], te:["విషయం చెప్పండి","ముందు దేని గురించి మాట్లాడుతున్నారో, విషయం మారినప్పుడూ చెప్పండి."], hi:["विषय बताएँ","पहले बताएँ कि किस बारे में बात है, और विषय बदले तब भी।"]},
-    {en:["Support the hearing aids","Help keep them charged or with fresh batteries, and worn all day."], kn:["ಶ್ರವಣ ಸಾಧನಕ್ಕೆ ಬೆಂಬಲ","ಚಾರ್ಜ್ ಅಥವಾ ಹೊಸ ಬ್ಯಾಟರಿ ಇರುವಂತೆ, ದಿನವಿಡೀ ಧರಿಸುವಂತೆ ಸಹಾಯ ಮಾಡಿ."], te:["వినికిడి యంత్రాలకు సహాయం","ఛార్జ్ లేదా కొత్త బ్యాటరీలు ఉండేలా, రోజంతా పెట్టుకునేలా సహాయం చేయండి."], hi:["हियरिंग एड में मदद","चार्ज या नई बैटरी रखने और दिन भर पहनने में मदद करें।"]}
-  ]
-};
-const I18N_APP = {
-  en:{ appName:"Conversation Coach", appSub:"Talking with someone who has aphasia or hearing loss", h2:"Small changes in how you talk make a big difference", intro:"Families who learn a few simple techniques help their loved one take part in conversation again. Choose the situation, read the six techniques, and tick the ones you used each day.",
-    mAph:"Aphasia after a stroke", mHear:"Hearing loss", noteAph:"Aphasia affects language, not intelligence. The person still knows what they want to say.", noteHear:"Hearing aids help, but they do not make hearing normal. How you talk still matters.",
-    practiceTitle:"Today's practice", practiceIntro:"Tick each technique you used today.", streak:"{n} of the last 14 days practised.", saved:"Saved for today",
-    helpTitle:"Get help", helpText:"A speech-language pathologist or audiologist can coach you in person and tailor these techniques. Ask for communication partner training.",
-    disclaimer:"General guidance for families. It does not replace therapy." },
-  kn:{ appName:"Conversation Coach", appSub:"ಅಫೇಸಿಯಾ ಅಥವಾ ಶ್ರವಣದೋಷ ಇರುವವರೊಂದಿಗೆ ಮಾತುಕತೆ", h2:"ಮಾತನಾಡುವ ರೀತಿಯಲ್ಲಿ ಸಣ್ಣ ಬದಲಾವಣೆ, ದೊಡ್ಡ ವ್ಯತ್ಯಾಸ", intro:"ಕೆಲವು ಸರಳ ತಂತ್ರಗಳನ್ನು ಕಲಿತ ಕುಟುಂಬಗಳು ತಮ್ಮ ಪ್ರೀತಿಪಾತ್ರರನ್ನು ಮತ್ತೆ ಮಾತುಕತೆಯಲ್ಲಿ ಭಾಗವಹಿಸುವಂತೆ ಮಾಡುತ್ತಾರೆ. ಸಂದರ್ಭ ಆರಿಸಿ, ಆರು ತಂತ್ರಗಳನ್ನು ಓದಿ, ಪ್ರತಿದಿನ ಬಳಸಿದವನ್ನು ಗುರುತಿಸಿ.",
-    mAph:"ಪಾರ್ಶ್ವವಾಯುವಿನ ನಂತರ ಅಫೇಸಿಯಾ", mHear:"ಶ್ರವಣದೋಷ", noteAph:"ಅಫೇಸಿಯಾ ಭಾಷೆಯ ಮೇಲೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ, ಬುದ್ಧಿಶಕ್ತಿಯ ಮೇಲಲ್ಲ. ಏನು ಹೇಳಬೇಕೆಂದು ಅವರಿಗೆ ಗೊತ್ತಿರುತ್ತದೆ.", noteHear:"ಶ್ರವಣ ಸಾಧನ ಸಹಾಯ ಮಾಡುತ್ತದೆ, ಆದರೆ ಶ್ರವಣವನ್ನು ಸಂಪೂರ್ಣ ಸರಿಪಡಿಸುವುದಿಲ್ಲ. ನೀವು ಮಾತನಾಡುವ ರೀತಿ ಮುಖ್ಯ.",
-    practiceTitle:"ಇಂದಿನ ಅಭ್ಯಾಸ", practiceIntro:"ಇಂದು ಬಳಸಿದ ಪ್ರತಿ ತಂತ್ರವನ್ನು ಗುರುತಿಸಿ.", streak:"ಕಳೆದ 14 ದಿನಗಳಲ್ಲಿ {n} ದಿನ ಅಭ್ಯಾಸ.", saved:"ಇಂದಿಗೆ ಉಳಿಸಲಾಗಿದೆ",
-    helpTitle:"ಸಹಾಯ ಪಡೆಯಿರಿ", helpText:"ವಾಕ್-ಭಾಷಾ ಚಿಕಿತ್ಸಕರು ಅಥವಾ ಶ್ರವಣಶಾಸ್ತ್ರಜ್ಞರು ನೇರವಾಗಿ ತರಬೇತಿ ನೀಡಿ ಈ ತಂತ್ರಗಳನ್ನು ಹೊಂದಿಸಬಹುದು. ಸಂವಹನ ಸಂಗಾತಿ ತರಬೇತಿ ಕೇಳಿ.",
-    disclaimer:"ಕುಟುಂಬಗಳಿಗೆ ಸಾಮಾನ್ಯ ಮಾರ್ಗದರ್ಶನ. ಇದು ಚಿಕಿತ್ಸೆಗೆ ಪರ್ಯಾಯವಲ್ಲ." },
-  te:{ appName:"Conversation Coach", appSub:"అఫేసియా లేదా వినికిడి లోపం ఉన్నవారితో మాట్లాడటం", h2:"మాట్లాడే తీరులో చిన్న మార్పులు, పెద్ద తేడా", intro:"కొన్ని సులభమైన పద్ధతులు నేర్చుకున్న కుటుంబాలు తమ ప్రియమైనవారిని మళ్లీ సంభాషణలో భాగం చేస్తాయి. పరిస్థితి ఎంచుకోండి, ఆరు పద్ధతులు చదవండి, ప్రతిరోజు వాడినవి టిక్ చేయండి.",
-    mAph:"స్ట్రోక్ తర్వాత అఫేసియా", mHear:"వినికిడి లోపం", noteAph:"అఫేసియా భాషను ప్రభావితం చేస్తుంది, తెలివిని కాదు. వారికి ఏం చెప్పాలో తెలుసు.", noteHear:"వినికిడి యంత్రాలు సహాయపడతాయి, కానీ వినికిడిని పూర్తిగా సాధారణం చేయవు. మీరు మాట్లాడే తీరు ముఖ్యం.",
-    practiceTitle:"ఈరోజు సాధన", practiceIntro:"ఈరోజు వాడిన ప్రతి పద్ధతిని టిక్ చేయండి.", streak:"గత 14 రోజుల్లో {n} రోజులు సాధన.", saved:"ఈరోజుకు సేవ్ అయింది",
-    helpTitle:"సహాయం పొందండి", helpText:"స్పీచ్-లాంగ్వేజ్ పాథాలజిస్ట్ లేదా ఆడియాలజిస్ట్ నేరుగా శిక్షణ ఇచ్చి ఈ పద్ధతులను మీకు తగినట్లు మార్చగలరు. కమ్యూనికేషన్ పార్ట్‌నర్ శిక్షణ అడగండి.",
-    disclaimer:"కుటుంబాల కోసం సాధారణ మార్గదర్శనం. ఇది చికిత్సకు ప్రత్యామ్నాయం కాదు." },
-  hi:{ appName:"Conversation Coach", appSub:"अफ़ेज़िया या कम सुनने वालों से बातचीत", h2:"बात करने के ढंग में छोटे बदलाव, बड़ा फ़र्क", intro:"जो परिवार कुछ आसान तरीक़े सीखते हैं, वे अपने प्रियजन को फिर से बातचीत में शामिल कर पाते हैं। स्थिति चुनें, छह तरीक़े पढ़ें, और हर दिन जो इस्तेमाल किए उन्हें टिक करें।",
-    mAph:"स्ट्रोक के बाद अफ़ेज़िया", mHear:"कम सुनना", noteAph:"अफ़ेज़िया भाषा को प्रभावित करता है, बुद्धि को नहीं। उन्हें पता है कि वे क्या कहना चाहते हैं।", noteHear:"हियरिंग एड मदद करते हैं, पर सुनना पूरी तरह सामान्य नहीं करते। आपके बोलने का ढंग अब भी मायने रखता है।",
-    practiceTitle:"आज का अभ्यास", practiceIntro:"आज जो तरीक़े इस्तेमाल किए, उन्हें टिक करें।", streak:"पिछले 14 दिनों में {n} दिन अभ्यास।", saved:"आज के लिए सहेजा गया",
-    helpTitle:"मदद लें", helpText:"स्पीच-लैंग्वेज पैथोलॉजिस्ट या ऑडियोलॉजिस्ट आमने-सामने सिखाकर इन तरीक़ों को आपके हिसाब से ढाल सकते हैं। कम्युनिकेशन पार्टनर ट्रेनिंग के बारे में पूछें।",
-    disclaimer:"परिवारों के लिए सामान्य मार्गदर्शन। यह थेरेपी का विकल्प नहीं है।" }
-};
-let mode = store.get("cc-mode", "aphasia");
-let log = store.get("cc-log", {});   // { "aphasia|2026-11-22": [0,2,3] }
-function render(){
-  $$("#modes [data-mode]").forEach(b => b.setAttribute("aria-pressed", b.dataset.mode === mode));
-  $("#modeNote").textContent = t(mode === "aphasia" ? "noteAph" : "noteHear");
-  $("#tech").innerHTML = TECH[mode].map((x,i) => { const [h,d] = pick(x); return `<div class="tcard"><div class="n">${i+1}</div><div><h4>${esc(h)}</h4><p>${esc(d)}</p></div></div>`; }).join("");
-  const today = log[mode + "|" + todayISO()] || [];
-  $("#checks").innerHTML = TECH[mode].map((x,i) => `<label class="check"><input type="checkbox" data-i="${i}" ${today.includes(i)?"checked":""}><span>${esc(pick(x)[0])}</span></label>`).join("");
-  const days = Array.from({length:14}, (_,k) => { const d = new Date(); d.setDate(d.getDate() - (13-k)); const iso = new Date(d.getTime() - d.getTimezoneOffset()*60000).toISOString().slice(0,10); return {iso, d, on: (log[mode+"|"+iso]||[]).length > 0}; });
-  $("#days").innerHTML = days.map(x => `<span class="${x.on?"on":""} ${x.iso===todayISO()?"today":""}" title="${esc(fmtDate(x.d))}">${x.d.getDate()}</span>`).join("");
-  $("#streak").textContent = t("streak", {n: days.filter(x => x.on).length});
-}
-$("#modes").addEventListener("click", e => { const b = e.target.closest("[data-mode]"); if (!b) return; mode = b.dataset.mode; store.set("cc-mode", mode); render(); });
-$("#checks").addEventListener("change", e => { const k = mode + "|" + todayISO(), i = Number(e.target.dataset.i), cur = log[k] || [];
-  log[k] = e.target.checked ? [...new Set([...cur, i])] : cur.filter(x => x !== i); store.set("cc-log", log); render(); toast(t("saved")); });
-KIT.start({ i18n: I18N_APP, render, version: "0.1.0" });
-</script>
+<div id="root"></div>
+<noscript>This app needs JavaScript turned on.</noscript>
+<script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

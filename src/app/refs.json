@@ -1,0 +1,17 @@
+[
+  { "id": "scae", "title": "Supported conversation for adults with aphasia", "tags": ["aphasia", "supported conversation", "partner", "sca", "training", "communication"],
+    "text": "Training conversation partners to acknowledge competence and reveal it — using writing, drawing, gesture and yes/no questions — measurably improves how well people with aphasia take part in conversation. The person's competence is masked by aphasia, not lost.",
+    "source": "Kagan A, et al. Training volunteers as conversation partners using Supported Conversation for Adults with Aphasia. J Speech Lang Hear Res 44(3):624–638", "year": 2001, "url": "https://pubmed.ncbi.nlm.nih.gov/11407567/", "checked": "Nov 2026" },
+  { "id": "partner-training", "title": "Communication partner training works", "tags": ["partner training", "family", "carer", "evidence", "systematic review", "aphasia"],
+    "text": "A systematic review found communication partner training improves conversation for people with chronic aphasia and changes partner behaviour. Families and carers are effective partners when trained in a few concrete techniques.",
+    "source": "Simmons-Mackie N, et al. Communication partner training in aphasia: a systematic review. Arch Phys Med Rehabil 91(12):1814–1837", "year": 2010, "url": "https://pubmed.ncbi.nlm.nih.gov/21112422/", "checked": "Nov 2026" },
+  { "id": "aphasia-intelligence", "title": "Aphasia is a language problem", "tags": ["aphasia", "intelligence", "stroke", "language", "understanding", "respect"],
+    "text": "Aphasia affects the use of language — speaking, understanding, reading or writing — after damage to language areas of the brain, usually from stroke. It does not reduce intelligence or memory of who the person is. Speak to the person as the capable adult they remain.",
+    "source": "National Aphasia Association / ASHA Practice Portal: Aphasia", "year": 2023, "url": "https://www.asha.org/practice-portal/clinical-topics/aphasia/", "checked": "Nov 2026" },
+  { "id": "clear-speech", "title": "Clear speech, not loud speech", "tags": ["hearing loss", "clear speech", "shouting", "communication", "face", "lipreading"],
+    "text": "For a person with hearing loss, speaking clearly at a natural pace and letting them see your face helps far more than shouting, which distorts the sounds of speech and the shape of the mouth. Reducing background noise and rephrasing missed words are the most useful habits for family members.",
+    "source": "British Society of Audiology / ASHA: Hearing loss — communication strategies", "year": 2022, "url": "https://www.asha.org/public/hearing/", "checked": "Nov 2026" },
+  { "id": "aids-partial", "title": "Hearing aids help but do not restore normal hearing", "tags": ["hearing aid", "communication", "noise", "expectations", "support", "wear"],
+    "text": "Hearing aids make speech more audible but do not return hearing to normal, especially in noise. Good communication habits from the people around the listener, and consistent daily use of well-fitted, charged aids, together give the best everyday result.",
+    "source": "World Health Organization. World report on hearing", "year": 2021, "url": "https://www.who.int/publications/i/item/9789240020481", "checked": "Nov 2026" }
+]
