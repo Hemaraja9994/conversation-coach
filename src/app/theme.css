@@ -1,0 +1,38 @@
+.theme-src{}
+/* ===== conversation-coach theme ===== */
+:root{
+  --color-paper: #FBF5F0;
+  --color-surface: #FFFEFB;
+  --color-ink: #3B2A24;
+  --color-muted: #6A564D;
+  --color-line: #EBD9CD;
+  --color-track: #F2E6DC;
+  --color-accent: #B03A5B;
+  --color-grid: #F2E6DC;
+  --font-sans: "Mulish","Noto Sans Kannada","Noto Sans Telugu","Noto Sans Devanagari","Atkinson Hyperlegible",system-ui,sans-serif;
+  --font-display: "Gabarito","Noto Sans Kannada","Noto Sans Telugu","Noto Sans Devanagari","Atkinson Hyperlegible",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+  --color-paper: #1A110D;
+  --color-surface: #261914;
+  --color-ink: #F3E7DF;
+  --color-accent: #E87898;
+  --color-grid: #2B1C16;
+  --color-muted: #A3B1C2;
+  --color-line: #2B3A4B;
+  --color-track: #22303F;
+  }
+}
+body{
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+h1,h2,h3,h4{ font-family: var(--font-display); }
+header.bg-ink{
+  background-image: radial-gradient(circle at 3px 3px, rgba(255,255,255,.06) 1.4px, transparent 0);
+  background-size: 20px 20px;
+}
+
